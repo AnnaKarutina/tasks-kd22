@@ -25,8 +25,10 @@ function deleteTask(event){
 
 
 function addTask(event) {
+    // user input
     const taskText = document.querySelector('#task').value
 
+    // add DOM element - begin
     let li = document.createElement('li')
     li.className = 'collection-item'
     let liText = document.createTextNode(taskText)
@@ -41,6 +43,17 @@ function addTask(event) {
     li.appendChild(a)
 
     ul.appendChild(li)
+    // add DOM element - end
+
+    // add task to localStorage
+    let tasks // array for user inputs
+    if(localStorage.getItem('tasks') === null){
+        tasks = []
+    } else {
+        tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    tasks.push(taskText)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
 
     document.querySelector('#task').value = ''
     event.preventDefault()
